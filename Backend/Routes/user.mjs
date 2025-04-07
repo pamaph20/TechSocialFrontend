@@ -3,7 +3,7 @@
 import express from "express";
 const router = express.Router();
 import User from "../Models/User.mjs"
-import { checkUser, addUser } from "../RouterControllers/userController.mjs";
+import { checkUser, addUser, updateUser } from "../RouterControllers/userController.mjs";
 
 export default router;
 
@@ -13,7 +13,7 @@ router.post("/create", async (req, res) => {
     const recieved = req.body;
     //body must be all of the information about the user on creation... See user model 
     const user = new User(recieved)
-    console.log("Recieved : ", user.toObject())
+    
     if(checkUser(user)){
         res.json("User Already Exists")
         res.status(404)
@@ -21,6 +21,21 @@ router.post("/create", async (req, res) => {
         addUser(user)
         res.json("User Added")
         res.status(200)
+    }
+});
+
+router.put("/update" , async (req,res) =>{
+    //to update an existing user
+    const recieved = req.body; 
+    const user = new User(recieved);
+    if(checkUser(user)){
+        //user exists which is what we want 
+        updateUser(user)
+        res.json(`Updated ${user.email} successfully`);
+        res.status(202);
+    }else{
+        res.json("User Not Found");
+        res.status(404);
     }
 });
 

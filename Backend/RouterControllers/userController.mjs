@@ -20,6 +20,23 @@ export async function addUser(User){
     console.log(result);
     return result;
 }
+
+export async function updateUser(User){
+    //gets all the keys => array[keys]
+    const keys = Object.keys(User._doc);
+    for(const key of keys) {
+        if(User[key] == null || key == '_id'){
+            continue;
+        }
+        console.log(key)
+        collection.updateOne({"email" : User.email },{
+            $set:{
+                [key] : User[key]
+            }
+        })
+    }
+
+}
 main();
     
 
