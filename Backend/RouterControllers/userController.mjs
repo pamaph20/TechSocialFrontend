@@ -37,6 +37,29 @@ export async function updateUser(User){
         })
     }
 }
+
+export async function requestFriend(userID, friendID){
+    //when you request to follow someone
+    collection.updateOne({"username" : friendID},
+        {$push:{
+            "pendingFriends" : userID
+    }}
+    )
+}
+
+export async function addFriend(userID, friendID){
+    //when someone accepts a friend request, have to both to update both friend lists
+    collection.updateOne({"username" : userID},{
+        $push:{
+            "friends": friendID
+        }
+    })
+    collection.updateOne({"username" : friendID},{
+        $push:{
+            "friends": userID
+        }
+    })
+}
 main();
     
 
