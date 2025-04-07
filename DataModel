@@ -2,6 +2,7 @@
 
 {
   "screenName": "String",
+  "email": "String"
   "username": "String",
   "password": "String",
   "skills": ["String"],
