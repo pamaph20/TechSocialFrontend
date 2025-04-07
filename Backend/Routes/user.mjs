@@ -3,7 +3,7 @@
 import express from "express";
 const router = express.Router();
 import User from "../Models/User.mjs"
-import { checkUser, addUser, updateUser } from "../RouterControllers/userController.mjs";
+import { checkUser, addUser, updateUser , requestFriend, addFriend} from "../RouterControllers/userController.mjs";
 
 export default router;
 
@@ -43,10 +43,22 @@ router.put("/requestFriend/:userID/:friendId", async (req,res) => {
     const userId = req.params.userID;
     const friendID = req.params.friendId;
     //the user must exist given itll be a refernce from an add friend request
-
     //needs a reference to the current logged in user
+    //how would this fail? 
+    requestFriend(userId, friendID);
+    res.json("Friend Requested");
+    res.status(202)
 })
 
-
+router.put("/updateFriendsList/:userID/:friendId", async (req,res) => {
+    const userId = req.params.userID;
+    const friendID = req.params.friendId;
+    //the user must exist given itll be a refernce from an add friend request
+    //needs a reference to the current logged in user
+    //how would this fail? 
+    addFriend(userId, friendID);
+    res.json("Friend Added");
+    res.status(202)
+})
 
 //Edit an Existing User
