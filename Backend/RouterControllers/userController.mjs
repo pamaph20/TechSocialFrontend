@@ -24,6 +24,7 @@ export async function addUser(User){
 export async function updateUser(User){
     //gets all the keys => array[keys]
     const keys = Object.keys(User._doc);
+    //for each key that does not have a null value (End user does not want to change it) update it in the db. 
     for(const key of keys) {
         if(User[key] == null || key == '_id'){
             continue;
@@ -35,7 +36,6 @@ export async function updateUser(User){
             }
         })
     }
-
 }
 main();
     

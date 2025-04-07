@@ -39,6 +39,13 @@ router.put("/update" , async (req,res) =>{
     }
 });
 
+router.put("/addFriend/:userID", async (req,res) => {
+    const userId = req.params.userID;
+    //the user must exist given itll be a refernce from an add friend request
+
+    //needs a reference to the current logged in user
+})
+
 
 
 //Edit an Existing User
